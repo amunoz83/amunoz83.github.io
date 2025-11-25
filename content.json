@@ -1,0 +1,142 @@
+{
+  "year": 2025,
+  "month": 11,
+  "days": [
+    {
+      "day": 1,
+      "category": "DÍA 1",
+      "title": "Presentación: Calendario de AIdviento 2025",
+      "description": "Introducción al formato, objetivos y recorrido del calendario formativo.",
+      "link": "https://youtu.be/6roTv1FF6kw",
+      "symbol": "✨"
+    },
+    {
+      "day": 2,
+      "category": "DÍA 2",
+      "title": "Google: Gemini y los Gems",
+      "description": "Creación y personalización de asistentes IA especializados (Gems) en el ecosistema Google.",
+      "link": "#",
+      "symbol": "💎"
+    },
+    {
+      "day": 3,
+      "category": "DÍA 3",
+      "title": "Google: Nano-Banana Pro - Usos",
+      "description": "Exploración de casos de uso prácticos para modelos ligeros y eficientes.",
+      "link": "#",
+      "symbol": "🍌"
+    },
+    {
+      "day": 4,
+      "category": "DÍA 4",
+      "title": "Google: Notebook LM",
+      "description": "Gestión del conocimiento y análisis de documentos con la herramienta de investigación asistida.",
+      "link": "#",
+      "symbol": "📓"
+    },
+    {
+      "day": 5,
+      "category": "DÍA 5",
+      "title": "Google Labs: Suite Creativa",
+      "description": "Experimentación con herramientas emergentes: Mixboard, Whisk, Pomelli, Opal y Flow.",
+      "link": "#",
+      "symbol": "🧪"
+    },
+    {
+      "day": 9,
+      "category": "DÍA 9",
+      "title": "Behind the Scenes 1: Storytelling",
+      "description": "El arte de narrar: construcción de guiones y estructura narrativa para proyectos de IA.",
+      "link": "#",
+      "symbol": "📝"
+    },
+    {
+      "day": 10,
+      "category": "DÍA 10",
+      "title": "Behind the Scenes 2: Storyboard e Imágenes",
+      "description": "Visualización de conceptos: generación de referencias visuales y planificación de escenas.",
+      "link": "#",
+      "symbol": "🖼️"
+    },
+    {
+      "day": 11,
+      "category": "DÍA 11",
+      "title": "Behind the Scenes 3: Sonido",
+      "description": "Diseño sonoro, generación de voz y efectos de audio asistidos por inteligencia artificial.",
+      "link": "#",
+      "symbol": "🎧"
+    },
+    {
+      "day": 12,
+      "category": "DÍA 12",
+      "title": "Behind the Scenes 4: Montaje",
+      "description": "Flujos de trabajo de edición y postproducción integrando herramientas generativas.",
+      "link": "#",
+      "symbol": "🎬"
+    },
+    {
+      "day": 15,
+      "category": "DÍA 15",
+      "title": "Photoshop 27.1: Imagen Generativa",
+      "description": "Novedades de la versión 27.1 y uso avanzado de herramientas de relleno generativo.",
+      "link": "#",
+      "symbol": "🖌️"
+    },
+    {
+      "day": 16,
+      "category": "DÍA 16",
+      "title": "Midjourney: Plataforma, herramientas y usos",
+      "description": "Dominio del ecosistema Midjourney: parámetros avanzados y casos de uso profesional.",
+      "link": "#",
+      "symbol": "⛵"
+    },
+    {
+      "day": 17,
+      "category": "DÍA 17",
+      "title": "Adobe Firefly: Plataforma, herramientas y usos",
+      "description": "Exploración de modelos de imagen y vectores en flujos comerciales éticos.",
+      "link": "#",
+      "symbol": "🔥"
+    },
+    {
+      "day": 18,
+      "category": "DÍA 18",
+      "title": "Freepik: Plataforma, herramientas y usos",
+      "description": "Herramientas de generación rápida, reimaginación y edición en tiempo real.",
+      "link": "#",
+      "symbol": "🚀"
+    },
+    {
+      "day": 19,
+      "category": "DÍA 19",
+      "title": "Google: Vibe Coding - Caso DiskcatalogMaker",
+      "description": "Estudio de caso sobre programación asistida por IA y depuración contextual.",
+      "link": "#",
+      "symbol": "💻"
+    },
+    {
+      "day": 22,
+      "category": "DÍA 22",
+      "title": "Photoshop: Ampliación Generativa",
+      "description": "Técnicas de outpainting para expandir lienzos sin perder calidad ni coherencia.",
+      "link": "#",
+      "symbol": "📐"
+    },
+    {
+      "day": 23,
+      "category": "DÍA 23",
+      "title": "Variaciones de decoraciones motivo",
+      "description": "Workflow Gemini + Acuarela: Creación de patrones decorativos y texturas generativas.",
+      "link": "#",
+      "symbol": "🎨"
+    },
+    {
+      "day": 24,
+      "category": "DÍA 24",
+      "title": "Conclusión y agradecimientos",
+      "description": "Recapitulativo de lo aprendido, despedida y visión futura.",
+      "link": "#",
+      "symbol": "🎉"
+    }
+  ]
+}

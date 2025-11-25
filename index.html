@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,13 +45,14 @@
             flex-direction: column;
             min-height: 100vh;
             transition: background-color 0.5s ease, color 0.5s ease;
-            position: relative; /* Necesario para el botón absoluto */
+            position: relative;
+            /* Necesario para el botón absoluto */
         }
 
         /* --- THEME TOGGLE BUTTON (POSITION ABSOLUTE) --- */
         /* Se queda quieto arriba, no persigue al usuario al hacer scroll */
         .theme-toggle {
-            position: absolute; 
+            position: absolute;
             top: 2rem;
             right: 5vw;
             z-index: 100;
@@ -115,7 +117,8 @@
         main {
             flex: 1;
             width: 100%;
-            padding-bottom: 4rem;
+            padding-bottom: 8rem;
+            /* Espacio para el simulador */
         }
 
         .calendar-grid {
@@ -142,17 +145,25 @@
         /* Estilo Ghost para día 8 */
         .day-card.ghost {
             cursor: default;
-            background: repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 10px,
-                var(--ghost-border) 10px,
-                var(--ghost-border) 11px
-            );
+            background: repeating-linear-gradient(45deg,
+                    transparent,
+                    transparent 10px,
+                    var(--ghost-border) 10px,
+                    var(--ghost-border) 11px);
             opacity: 0.3;
         }
 
-        .day-card:not(.ghost):hover {
+        /* Estilo para tarjetas bloqueadas */
+        .day-card.locked {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .day-card.locked .card-front {
+            filter: grayscale(50%);
+        }
+
+        .day-card:not(.ghost):not(.locked):hover {
             z-index: 10;
         }
 
@@ -164,11 +175,12 @@
             transform-style: preserve-3d;
         }
 
-        .day-card:not(.ghost):hover .card-inner {
+        .day-card:not(.ghost):not(.locked):hover .card-inner {
             transform: rotateY(180deg);
         }
 
-        .card-front, .card-back {
+        .card-front,
+        .card-back {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -200,10 +212,18 @@
             filter: grayscale(20%);
             transition: transform 0.3s ease;
         }
-        
-        .day-card:hover .unique-symbol {
+
+        .day-card:not(.locked):hover .unique-symbol {
             transform: scale(1.2) rotate(15deg);
             filter: grayscale(0%);
+        }
+
+        .lock-icon {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
         }
 
         .date-meta {
@@ -250,6 +270,58 @@
             opacity: 0.8;
         }
 
+        /* --- DATE SIMULATOR --- */
+        .date-simulator {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--brand-red);
+            color: white;
+            padding: 1rem 5vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            z-index: 1000;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+        }
+
+        .date-simulator label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .date-simulator input {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            border: none;
+            background: white;
+            color: var(--brand-red);
+            font-weight: 600;
+            border-radius: 3px;
+        }
+
+        .date-simulator button {
+            padding: 0.5rem 1.5rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .date-simulator button:hover {
+            background: white;
+            color: var(--brand-red);
+        }
+
         /* --- FOOTER --- */
         footer {
             padding: 3rem 5vw;
@@ -265,16 +337,34 @@
 
         /* RESPONSIVE */
         @media (max-width: 1024px) {
-            .calendar-grid { grid-template-columns: repeat(2, 1fr); }
+            .calendar-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
+
         @media (max-width: 600px) {
-            h1 { font-size: 2.5rem; }
-            .calendar-grid { grid-template-columns: 1fr; }
-            .theme-toggle { position: absolute; top: 1rem; right: 5vw; }
-            .day-card { height: 300px; border-left: none; }
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .calendar-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .theme-toggle {
+                position: absolute;
+                top: 1rem;
+                right: 5vw;
+            }
+
+            .day-card {
+                height: 300px;
+                border-left: none;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <button class="theme-toggle" id="themeToggle">Modo Claro</button>
@@ -302,6 +392,14 @@
         <div style="text-align: right">Esmalglass Design Department</div>
     </footer>
 
+    <!-- Date Simulator for Testing -->
+    <div class="date-simulator">
+        <label for="testDate">📅 Fecha de Prueba:</label>
+        <input type="date" id="testDate" />
+        <button id="applyDate">Aplicar</button>
+        <button id="resetDate">Usar Fecha Actual</button>
+    </div>
+
     <script>
         // Toggle de temas
         const toggleBtn = document.getElementById('themeToggle');
@@ -312,65 +410,73 @@
             toggleBtn.textContent = body.classList.contains('light-mode') ? "Modo Oscuro" : "Modo Claro";
         });
 
-        // Lista de Símbolos
-        const symbols = [
-            "✨", "⚡️", "🌟", "💥", "🌀", // Sem 1
-            // Sem 2 (Dia 8 vacío)
-            "🚀", "🔮", "👾", "🧬", // Sem 2
-            "❄️", "💎", "🪐", "🔥", "🧩", // Sem 3
-            "🦾", "👁️", "🎓"  // Sem 4
-        ];
+        // Variable global para la fecha de prueba
+        let testDate = null;
 
-        const topics = [
-            "Adobe Firefly: Vectorización Avanzada",
-            "Midjourney V6: Prompting Técnico",
-            "Stable Diffusion: ControlNet",
-            "Photoshop: Retoque Generativo",
-            "Figma AI: Automatización",
-            // Semana 2 (Dia 8 vacio)
-            "Upscaling: Gran Formato",
-            "3D Generativo: Texturas",
-            "Tipografía: Fuentes Variables",
-            "Legalidad: Copyright & IA",
-            // Semana 3
-            "Python: Scripts Básicos",
-            "Runway Gen-2: Motion",
-            "Wireframing Predictivo",
-            "Storytelling Visual",
-            "Modelos LoRA Custom",
-            // Semana 4
-            "Tendencias 2026 Data",
-            "API en Flujos Creativos",
-            "Optimización Web AI"
-        ];
+        // Configuración del simulador de fechas
+        const dateInput = document.getElementById('testDate');
+        const applyBtn = document.getElementById('applyDate');
+        const resetBtn = document.getElementById('resetDate');
+
+        // Inicializar el input con la fecha actual
+        const today = new Date();
+        dateInput.value = today.toISOString().split('T')[0];
+
+        applyBtn.addEventListener('click', () => {
+            testDate = new Date(dateInput.value);
+            testDate.setHours(0, 0, 0, 0);
+            loadCalendar();
+        });
+
+        resetBtn.addEventListener('click', () => {
+            testDate = null;
+            dateInput.value = today.toISOString().split('T')[0];
+            loadCalendar();
+        });
 
         const container = document.getElementById('calendarContainer');
-        
-        const year = 2025;
-        const month = 11; // Diciembre
-        const limitDay = 24;
-        
-        let topicIndex = 0;
-        let symbolIndex = 0;
+        let calendarData = null;
 
-        // Bucle principal
-        for (let day = 1; day <= limitDay; day++) {
-            const date = new Date(year, month, day);
-            const dayOfWeek = date.getDay(); // 0=Dom, 6=Sab
+        // Cargar datos desde JSON
+        async function loadCalendar() {
+            container.innerHTML = ''; // Limpiar contenedor
 
-            const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
+            if (!calendarData) {
+                try {
+                    const response = await fetch('content.json');
+                    calendarData = await response.json();
+                } catch (error) {
+                    console.error('Error loading content.json:', error);
+                    container.innerHTML = '<div style="padding: 2rem; text-align: center; color: red;">Error: No se pudo cargar content.json. Asegúrate de servir el archivo con un servidor web local.</div>';
+                    return;
+                }
+            }
 
-            // Filtramos fines de semana
-            if (!isWeekend) {
-                
-                // Filtramos Festivo Día 8 (GHOST CARD)
-                if (day === 8) {
-                    createGhostCard(date);
-                } else {
-                    // Día laborable normal
-                    createCard(day, date, topics[topicIndex], symbols[symbolIndex]);
-                    topicIndex++;
-                    symbolIndex++;
+            const year = calendarData.year;
+            const month = calendarData.month;
+            const limitDay = 24;
+
+            // Crear un mapa de días con contenido
+            const contentMap = {};
+            calendarData.days.forEach(item => {
+                contentMap[item.day] = item;
+            });
+
+            // Bucle principal
+            for (let day = 1; day <= limitDay; day++) {
+                const date = new Date(year, month, day);
+                const dayOfWeek = date.getDay(); // 0=Dom, 6=Sab
+                const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
+
+                // Filtramos fines de semana
+                if (!isWeekend) {
+                    // Filtramos Festivo Día 8 (GHOST CARD)
+                    if (day === 8) {
+                        createGhostCard(date);
+                    } else if (contentMap[day]) {
+                        // Día laborable normal con contenido
+                        createCard(day, date, contentMap[day], year, month);
+                    }
                 }
             }
         }
@@ -398,18 +504,32 @@
             appendToContainer(cardHTML);
         }
 
-        function createCard(day, date, topic, symbol) {
+        function createCard(day, date, content, year, month) {
             let weekday = date.toLocaleDateString('es-ES', { weekday: 'long' });
             weekday = weekday.charAt(0).toUpperCase() + weekday.slice(1);
-            
-            const currentTopic = topic || "Tema por definir";
-            const currentSymbol = symbol || "✨";
+
+            const currentTopic = content.title || "Tema por definir";
+            const currentSymbol = content.symbol || "✨";
+            const category = content.category || "FORMACIÓN";
+            const description = content.description || "Análisis de implementación técnica y casos de uso en producción real.";
+            const link = content.link || "#";
+
+            // Verificar si la tarjeta está desbloqueada
+            const referenceDate = testDate || new Date();
+            referenceDate.setHours(0, 0, 0, 0);
+            const cardDate = new Date(year, month, day);
+            cardDate.setHours(0, 0, 0, 0);
+            const isLocked = cardDate > referenceDate;
+
+            const lockedClass = isLocked ? ' locked' : '';
+            const lockIcon = isLocked ? '<span class="lock-icon">🔒</span>' : '';
 
             const cardHTML = `
-                <div class="day-card">
+                <div class="day-card${lockedClass}" data-day="${day}" data-month="${month}">
                     <div class="card-inner">
                         <!-- Front -->
                         <div class="card-front">
+                            ${lockIcon}
                             <div style="width: 100%;">
                                 <span class="brand-tag">DICIEMBRE</span>
                             </div>
@@ -419,18 +539,18 @@
                             </div>
                             <div class="date-meta">
                                 <span>${weekday}</span>
-                                <span>+ Info</span>
+                                <span>${isLocked ? '🔒 Bloqueado' : '+ Info'}</span>
                             </div>
                         </div>
                         
                         <!-- Back -->
                         <div class="card-back">
-                            <span class="topic-category">FORMACIÓN ${topicIndex + 1}</span>
+                            <span class="topic-category">${category}</span>
                             <h3 class="topic-title">${currentTopic}</h3>
                             <p style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 2rem;">
-                                Análisis de implementación técnica y casos de uso en producción real.
+                                ${description}
                             </p>
-                            <a href="#" class="cta-link">Acceder a contenido →</a>
+                            <a href="${link}" class="cta-link" target="_blank" onclick="event.stopPropagation()">Acceder a contenido →</a>
                         </div>
                     </div>
                 </div>
@@ -445,4 +565,5 @@
         }
     </script>
 </body>
+
 </html>
