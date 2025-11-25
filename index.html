@@ -72,6 +72,50 @@
             color: var(--bg-color);
         }
 
+        /* --- LOGO --- */
+        .header-logo {
+            position: absolute;
+            top: calc(2rem + 50px);
+            /* Below the mode button */
+            right: 5vw;
+            height: 200px;
+            /* One third of 240px */
+            width: auto;
+            transition: opacity 0.3s ease;
+            z-index: 100;
+        }
+
+        /* Dark mode logo (default) */
+        .logo-dark {
+            display: block;
+        }
+
+        .logo-light {
+            display: none;
+        }
+
+        /* Light mode logo */
+        body.light-mode .logo-dark {
+            display: none;
+        }
+
+        body.light-mode .logo-light {
+            display: block;
+        }
+
+        @media (max-width: 1024px) {
+            .header-logo {
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .header-logo {
+                top: calc(1rem + 40px);
+                height: 50px;
+            }
+        }
+
         /* --- TYPOGRAPHY --- */
         h1 {
             font-size: 4vw;
@@ -279,13 +323,18 @@
             background-color: var(--brand-red);
             color: white;
             padding: 1rem 5vw;
-            display: flex;
+            display: none;
+            /* Hidden by default */
             align-items: center;
             justify-content: center;
             gap: 1rem;
             z-index: 1000;
             box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
             transition: all 0.5s ease;
+        }
+
+        .date-simulator.unlocked {
+            display: flex;
         }
 
         .date-simulator label {
@@ -320,6 +369,46 @@
         .date-simulator button:hover {
             background: white;
             color: var(--brand-red);
+        }
+
+        /* Code unlock section */
+        .code-unlock {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            background: var(--accent-color);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+            z-index: 999;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .code-unlock input {
+            padding: 0.3rem 0.5rem;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 0.8rem;
+            border-radius: 3px;
+        }
+
+        .code-unlock button {
+            padding: 0.3rem 0.8rem;
+            background: var(--brand-red);
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .code-unlock.hidden {
+            display: none;
         }
 
         /* --- FOOTER --- */
@@ -369,10 +458,15 @@
 
     <button class="theme-toggle" id="themeToggle">Modo Claro</button>
 
+    <!-- Altadia Logo -->
+    <img src="Altadia_Logo_RGB_Blanco:Rojo_RGB.png" alt="Altadia" class="header-logo logo-dark">
+    <img src="Altadia_Logo_RGB_Negro:Rojo_RGB.png" alt="Altadia" class="header-logo logo-light">
+
     <header>
         <span class="brand-tag">Dpto. Diseño — Formación Continua</span>
         <div class="header-meta">
             <h1>Calendario<br><span class="ai-highlight">AI</span>dviento 2025</h1>
+
             <div style="max-width: 420px; text-align: right;">
                 <p style="font-size: 0.9rem; opacity: 0.8;">
                     Exploración diaria de herramientas de IA aplicadas al flujo de trabajo en diseño técnico y creativo.
@@ -392,12 +486,19 @@
         <div style="text-align: right">Esmalglass Design Department</div>
     </footer>
 
+    <!-- Code Unlock for Date Simulator -->
+    <div class="code-unlock" id="codeUnlock">
+        <input type="password" id="unlockCode" placeholder="Código" />
+        <button id="unlockBtn">Desbloquear</button>
+    </div>
+
     <!-- Date Simulator for Testing -->
-    <div class="date-simulator">
+    <div class="date-simulator" id="dateSimulator">
         <label for="testDate">📅 Fecha de Prueba:</label>
         <input type="date" id="testDate" />
         <button id="applyDate">Aplicar</button>
         <button id="resetDate">Usar Fecha Actual</button>
+        <button id="lockSimulator">🔒 Ocultar</button>
     </div>
 
     <script>
@@ -417,6 +518,37 @@
         const dateInput = document.getElementById('testDate');
         const applyBtn = document.getElementById('applyDate');
         const resetBtn = document.getElementById('resetDate');
+
+        // Code unlock functionality
+        const codeUnlock = document.getElementById('codeUnlock');
+        const unlockCodeInput = document.getElementById('unlockCode');
+        const unlockBtn = document.getElementById('unlockBtn');
+        const dateSimulator = document.getElementById('dateSimulator');
+        const lockSimulatorBtn = document.getElementById('lockSimulator');
+
+        unlockBtn.addEventListener('click', () => {
+            if (unlockCodeInput.value.toLowerCase() === 'altadia') {
+                dateSimulator.classList.add('unlocked');
+                codeUnlock.classList.add('hidden');
+                unlockCodeInput.value = '';
+            } else {
+                alert('Código incorrecto');
+                unlockCodeInput.value = '';
+            }
+        });
+
+        // Allow Enter key to unlock
+        unlockCodeInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                unlockBtn.click();
+            }
+        });
+
+        // Lock simulator button
+        lockSimulatorBtn.addEventListener('click', () => {
+            dateSimulator.classList.remove('unlocked');
+            codeUnlock.classList.remove('hidden');
+        });
 
         // Inicializar el input con la fecha actual
         const today = new Date();
