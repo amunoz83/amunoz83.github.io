@@ -161,8 +161,7 @@
         main {
             flex: 1;
             width: 100%;
-            padding-bottom: 8rem;
-            /* Espacio para el simulador */
+            padding-bottom: 4rem;
         }
 
         .calendar-grid {
@@ -314,63 +313,6 @@
             opacity: 0.8;
         }
 
-        /* --- DATE SIMULATOR --- */
-        .date-simulator {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: var(--brand-red);
-            color: white;
-            padding: 1rem 5vw;
-            display: none;
-            /* Hidden by default */
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            z-index: 1000;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
-            transition: all 0.5s ease;
-        }
-
-        .date-simulator.unlocked {
-            display: flex;
-        }
-
-        .date-simulator label {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
-
-        .date-simulator input {
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
-            border: none;
-            background: white;
-            color: var(--brand-red);
-            font-weight: 600;
-            border-radius: 3px;
-        }
-
-        .date-simulator button {
-            padding: 0.5rem 1.5rem;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            border: 2px solid white;
-            background: transparent;
-            color: white;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .date-simulator button:hover {
-            background: white;
-            color: var(--brand-red);
-        }
-
         /* Code unlock section */
         .code-unlock {
             position: fixed;
@@ -486,19 +428,10 @@
         <div style="text-align: right">Esmalglass Design Department</div>
     </footer>
 
-    <!-- Code Unlock for Date Simulator -->
+    <!-- Code Unlock for All Content -->
     <div class="code-unlock" id="codeUnlock">
         <input type="password" id="unlockCode" placeholder="Código" />
-        <button id="unlockBtn">Desbloquear</button>
-    </div>
-
-    <!-- Date Simulator for Testing -->
-    <div class="date-simulator" id="dateSimulator">
-        <label for="testDate">📅 Fecha de Prueba:</label>
-        <input type="date" id="testDate" />
-        <button id="applyDate">Aplicar</button>
-        <button id="resetDate">Usar Fecha Actual</button>
-        <button id="lockSimulator">🔒 Ocultar</button>
+        <button id="unlockBtn">Desbloquear Todo</button>
     </div>
 
     <script>
@@ -511,26 +444,21 @@
             toggleBtn.textContent = body.classList.contains('light-mode') ? "Modo Oscuro" : "Modo Claro";
         });
 
-        // Variable global para la fecha de prueba
-        let testDate = null;
-
-        // Configuración del simulador de fechas
-        const dateInput = document.getElementById('testDate');
-        const applyBtn = document.getElementById('applyDate');
-        const resetBtn = document.getElementById('resetDate');
+        // Variable global para desbloquear todo el contenido
+        let unlockAll = false;
 
         // Code unlock functionality
         const codeUnlock = document.getElementById('codeUnlock');
         const unlockCodeInput = document.getElementById('unlockCode');
         const unlockBtn = document.getElementById('unlockBtn');
-        const dateSimulator = document.getElementById('dateSimulator');
-        const lockSimulatorBtn = document.getElementById('lockSimulator');
 
         unlockBtn.addEventListener('click', () => {
-            if (unlockCodeInput.value.toLowerCase() === 'altadia') {
-                dateSimulator.classList.add('unlocked');
+            if (unlockCodeInput.value.toLowerCase() === 'altadia1') {
+                unlockAll = true;
                 codeUnlock.classList.add('hidden');
                 unlockCodeInput.value = '';
+                loadCalendar();
+                alert('¡Todo el contenido ha sido desbloqueado!');
             } else {
                 alert('Código incorrecto');
                 unlockCodeInput.value = '';
@@ -542,28 +470,6 @@
             if (e.key === 'Enter') {
                 unlockBtn.click();
             }
-        });
-
-        // Lock simulator button
-        lockSimulatorBtn.addEventListener('click', () => {
-            dateSimulator.classList.remove('unlocked');
-            codeUnlock.classList.remove('hidden');
-        });
-
-        // Inicializar el input con la fecha actual
-        const today = new Date();
-        dateInput.value = today.toISOString().split('T')[0];
-
-        applyBtn.addEventListener('click', () => {
-            testDate = new Date(dateInput.value);
-            testDate.setHours(0, 0, 0, 0);
-            loadCalendar();
-        });
-
-        resetBtn.addEventListener('click', () => {
-            testDate = null;
-            dateInput.value = today.toISOString().split('T')[0];
-            loadCalendar();
         });
 
         const container = document.getElementById('calendarContainer');
@@ -647,11 +553,16 @@
             const link = content.link || "#";
 
             // Verificar si la tarjeta está desbloqueada
-            const referenceDate = testDate || new Date();
-            referenceDate.setHours(0, 0, 0, 0);
-            const cardDate = new Date(year, month, day);
-            cardDate.setHours(0, 0, 0, 0);
-            const isLocked = cardDate > referenceDate;
+            // Si unlockAll está activo, desbloquear todas las tarjetas
+            // Si no, desbloquear solo las tarjetas del día actual y anteriores
+            let isLocked = false;
+            if (!unlockAll) {
+                const currentDate = new Date();
+                currentDate.setHours(0, 0, 0, 0);
+                const cardDate = new Date(year, month, day);
+                cardDate.setHours(0, 0, 0, 0);
+                isLocked = cardDate > currentDate;
+            }
 
             const lockedClass = isLocked ? ' locked' : '';
             const lockIcon = isLocked ? '<span class="lock-icon">🔒</span>' : '';
