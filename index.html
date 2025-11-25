@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIdviento 2025 | Esmalglass Design</title>
+    <style>
+        /* --- VARIABLES & THEME --- */
+        :root {
+            --bg-color: #121212;
+            --text-color: #f0f0f0;
+            --border-color: #333333;
+            --accent-color: #444444;
+            --card-hover-bg: #ffffff;
+            --card-hover-text: #000000;
+            --brand-red: #ff2a2a;
+            --ghost-border: #222;
+        }
+
+        body.light-mode {
+            --bg-color: #ffffff;
+            --text-color: #1a1a1a;
+            --border-color: #e5e5e5;
+            --accent-color: #f0f0f0;
+            --card-hover-bg: #000000;
+            --card-hover-text: #ffffff;
+            --brand-red: #d60000;
+            --ghost-border: #f4f4f4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            line-height: 1.4;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            position: relative; /* Necesario para el botón absoluto */
+        }
+
+        /* --- THEME TOGGLE BUTTON (POSITION ABSOLUTE) --- */
+        /* Se queda quieto arriba, no persigue al usuario al hacer scroll */
+        .theme-toggle {
+            position: absolute; 
+            top: 2rem;
+            right: 5vw;
+            z-index: 100;
+            background: transparent;
+            border: 1px solid var(--text-color);
+            color: var(--text-color);
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .theme-toggle:hover {
+            background: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1 {
+            font-size: 4vw;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .ai-highlight {
+            color: var(--brand-red);
+        }
+
+        /* --- LAYOUT --- */
+        header {
+            padding: 4rem 5vw;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: border-color 0.5s ease;
+        }
+
+        .header-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .brand-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: block;
+            opacity: 0.7;
+        }
+
+        /* --- CALENDAR GRID --- */
+        main {
+            flex: 1;
+            width: 100%;
+            padding-bottom: 4rem;
+        }
+
+        .calendar-grid {
+            display: grid;
+            /* 5 columnas fijas (Lunes a Viernes) */
+            grid-template-columns: repeat(5, 1fr);
+            border-left: 1px solid var(--border-color);
+            transition: border-color 0.5s ease;
+            max-width: 100%;
+        }
+
+        /* --- CARD STYLES --- */
+        .day-card {
+            position: relative;
+            height: 350px;
+            background: transparent;
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            perspective: 1000px;
+            cursor: pointer;
+            transition: border-color 0.5s ease;
+        }
+
+        /* Estilo Ghost para día 8 */
+        .day-card.ghost {
+            cursor: default;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                var(--ghost-border) 10px,
+                var(--ghost-border) 11px
+            );
+            opacity: 0.3;
+        }
+
+        .day-card:not(.ghost):hover {
+            z-index: 10;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            transform-style: preserve-3d;
+        }
+
+        .day-card:not(.ghost):hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-front {
+            background-color: var(--bg-color);
+        }
+
+        .date-large {
+            font-size: 5rem;
+            font-weight: 300;
+            letter-spacing: -3px;
+            line-height: 0.8;
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .unique-symbol {
+            font-size: 2rem;
+            margin-left: 15px;
+            margin-top: 5px;
+            filter: grayscale(20%);
+            transition: transform 0.3s ease;
+        }
+        
+        .day-card:hover .unique-symbol {
+            transform: scale(1.2) rotate(15deg);
+            filter: grayscale(0%);
+        }
+
+        .date-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            transition: border-color 0.5s ease;
+        }
+
+        .card-back {
+            background-color: var(--card-hover-bg);
+            color: var(--card-hover-text);
+            transform: rotateY(180deg);
+            justify-content: center;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .topic-category {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.6;
+            margin-bottom: 1rem;
+        }
+
+        .topic-title {
+            font-size: 1.6rem;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-link {
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: inherit;
+            border-bottom: 1px solid currentColor;
+            padding-bottom: 5px;
+            opacity: 0.8;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 3rem 5vw;
+            background-color: var(--bg-color);
+            border-top: 1px solid var(--border-color);
+            font-size: 0.8rem;
+            color: var(--text-color);
+            opacity: 0.6;
+            display: flex;
+            justify-content: space-between;
+            transition: all 0.5s ease;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .calendar-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            .calendar-grid { grid-template-columns: 1fr; }
+            .theme-toggle { position: absolute; top: 1rem; right: 5vw; }
+            .day-card { height: 300px; border-left: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="theme-toggle" id="themeToggle">Modo Claro</button>
+
+    <header>
+        <span class="brand-tag">Dpto. Diseño — Formación Continua</span>
+        <div class="header-meta">
+            <h1>Calendario<br><span class="ai-highlight">AI</span>dviento 2025</h1>
+            <div style="max-width: 420px; text-align: right;">
+                <p style="font-size: 0.9rem; opacity: 0.8;">
+                    Exploración diaria de herramientas de IA aplicadas al flujo de trabajo en diseño técnico y creativo.
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="calendar-grid" id="calendarContainer">
+            <!-- Las fichas se inyectan aquí mediante JS -->
+        </div>
+    </main>
+
+    <footer>
+        <div>© 2025 Antonio Muñoz</div>
+        <div style="text-align: right">Esmalglass Design Department</div>
+    </footer>
+
+    <script>
+        // Toggle de temas
+        const toggleBtn = document.getElementById('themeToggle');
+        const body = document.body;
+
+        toggleBtn.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            toggleBtn.textContent = body.classList.contains('light-mode') ? "Modo Oscuro" : "Modo Claro";
+        });
+
+        // Lista de Símbolos
+        const symbols = [
+            "✨", "⚡️", "🌟", "💥", "🌀", // Sem 1
+            // Sem 2 (Dia 8 vacío)
+            "🚀", "🔮", "👾", "🧬", // Sem 2
+            "❄️", "💎", "🪐", "🔥", "🧩", // Sem 3
+            "🦾", "👁️", "🎓"  // Sem 4
+        ];
+
+        const topics = [
+            "Adobe Firefly: Vectorización Avanzada",
+            "Midjourney V6: Prompting Técnico",
+            "Stable Diffusion: ControlNet",
+            "Photoshop: Retoque Generativo",
+            "Figma AI: Automatización",
+            // Semana 2 (Dia 8 vacio)
+            "Upscaling: Gran Formato",
+            "3D Generativo: Texturas",
+            "Tipografía: Fuentes Variables",
+            "Legalidad: Copyright & IA",
+            // Semana 3
+            "Python: Scripts Básicos",
+            "Runway Gen-2: Motion",
+            "Wireframing Predictivo",
+            "Storytelling Visual",
+            "Modelos LoRA Custom",
+            // Semana 4
+            "Tendencias 2026 Data",
+            "API en Flujos Creativos",
+            "Optimización Web AI"
+        ];
+
+        const container = document.getElementById('calendarContainer');
+        
+        const year = 2025;
+        const month = 11; // Diciembre
+        const limitDay = 24;
+        
+        let topicIndex = 0;
+        let symbolIndex = 0;
+
+        // Bucle principal
+        for (let day = 1; day <= limitDay; day++) {
+            const date = new Date(year, month, day);
+            const dayOfWeek = date.getDay(); // 0=Dom, 6=Sab
+
+            const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
+
+            // Filtramos fines de semana
+            if (!isWeekend) {
+                
+                // Filtramos Festivo Día 8 (GHOST CARD)
+                if (day === 8) {
+                    createGhostCard(date);
+                } else {
+                    // Día laborable normal
+                    createCard(day, date, topics[topicIndex], symbols[symbolIndex]);
+                    topicIndex++;
+                    symbolIndex++;
+                }
+            }
+        }
+
+        function createGhostCard(date) {
+            let weekday = date.toLocaleDateString('es-ES', { weekday: 'long' });
+            weekday = weekday.charAt(0).toUpperCase() + weekday.slice(1);
+
+            const cardHTML = `
+                <div class="day-card ghost">
+                    <div class="card-front" style="background:transparent;">
+                        <div style="width: 100%;">
+                            <span class="brand-tag" style="opacity:0.3">FESTIVO</span>
+                        </div>
+                        <span class="date-large" style="opacity:0.2; font-size: 4rem;">
+                            08
+                        </span>
+                        <div class="date-meta" style="border-color: rgba(128,128,128,0.2); color: rgba(128,128,128,0.5);">
+                            <span>${weekday}</span>
+                            <span>Cerrado</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            appendToContainer(cardHTML);
+        }
+
+        function createCard(day, date, topic, symbol) {
+            let weekday = date.toLocaleDateString('es-ES', { weekday: 'long' });
+            weekday = weekday.charAt(0).toUpperCase() + weekday.slice(1);
+            
+            const currentTopic = topic || "Tema por definir";
+            const currentSymbol = symbol || "✨";
+
+            const cardHTML = `
+                <div class="day-card">
+                    <div class="card-inner">
+                        <!-- Front -->
+                        <div class="card-front">
+                            <div style="width: 100%;">
+                                <span class="brand-tag">DICIEMBRE</span>
+                            </div>
+                            <div class="date-large">
+                                ${day < 10 ? '0' + day : day}
+                                <span class="unique-symbol">${currentSymbol}</span>
+                            </div>
+                            <div class="date-meta">
+                                <span>${weekday}</span>
+                                <span>+ Info</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Back -->
+                        <div class="card-back">
+                            <span class="topic-category">FORMACIÓN ${topicIndex + 1}</span>
+                            <h3 class="topic-title">${currentTopic}</h3>
+                            <p style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 2rem;">
+                                Análisis de implementación técnica y casos de uso en producción real.
+                            </p>
+                            <a href="#" class="cta-link">Acceder a contenido →</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            appendToContainer(cardHTML);
+        }
+
+        function appendToContainer(html) {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html.trim();
+            container.appendChild(tempDiv.firstChild);
+        }
+    </script>
+</body>
+</html>
