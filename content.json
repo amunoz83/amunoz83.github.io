@@ -7,14 +7,14 @@
       "category": "DÍA 1",
       "title": "Presentación: Calendario de AIdviento 2025",
       "description": "Introducción al formato, objetivos y recorrido del calendario formativo.",
-      "link": "https://youtu.be/6roTv1FF6kw",
+      "link": "https://meet.google.com/ots-cbpq-aoa",
       "symbol": "✨"
     },
     {
       "day": 2,
       "category": "DÍA 2",
-      "title": "Google: Gemini y los Gems",
-      "description": "Creación y personalización de asistentes IA especializados (Gems) en el ecosistema Google.",
+      "title": "Google: Gemini, los Gems y los Flows",
+      "description": "Creación y personalización de asistentes IA especializados (Gems y Flows) en el ecosistema Google.",
       "link": "#",
       "symbol": "💎"
     },
@@ -22,8 +22,8 @@
       "day": 3,
       "category": "DÍA 3",
       "title": "Google: Nano-Banana Pro - Usos",
-      "description": "Exploración de casos de uso prácticos para modelos ligeros y eficientes.",
-      "link": "#",
+      "description": "Exploración de casos de uso prácticos con el modo imagen avanzado.",
+      "link": "https://youtu.be/6roTv1FF6kw",
       "symbol": "🍌"
     },
     {
@@ -31,7 +31,7 @@
       "category": "DÍA 4",
       "title": "Google: Notebook LM",
       "description": "Gestión del conocimiento y análisis de documentos con la herramienta de investigación asistida.",
-      "link": "#",
+      "link": "https://youtu.be/pyzrrLKBI0E",
       "symbol": "📓"
     },
     {
