@@ -75,13 +75,13 @@
         /* --- LOGO --- */
         .header-logo {
             position: absolute;
-            top: calc(2rem + 50px);
-            /* Below the mode button */
-            right: 5vw;
-            height: 200px;
-            /* One third of 240px */
+            top: 3.5rem;
+            /* Más arriba, cerca del botón de modo */
+            right: 3vw;
+            height: 120px;
+            /* Tamaño más pequeño */
             width: auto;
-            transition: opacity 0.3s ease;
+            transition: all 0.3s ease;
             z-index: 100;
         }
 
@@ -103,15 +103,41 @@
             display: block;
         }
 
+        /* Responsive logo sizes - gradual reduction */
+        @media (max-width: 1400px) {
+            .header-logo {
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .header-logo {
+                height: 90px;
+            }
+        }
+
         @media (max-width: 1024px) {
             .header-logo {
-                height: 150px;
+                height: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-logo {
+                height: 70px;
+                top: 1.2rem;
             }
         }
 
         @media (max-width: 600px) {
             .header-logo {
-                top: calc(1rem + 40px);
+                height: 60px;
+                top: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-logo {
                 height: 50px;
             }
         }
@@ -138,6 +164,42 @@
             flex-direction: column;
             justify-content: center;
             transition: border-color 0.5s ease;
+        }
+
+        @media (max-width: 1400px) {
+            header {
+                padding-right: calc(5vw + 200px);
+            }
+        }
+
+        @media (max-width: 1200px) {
+            header {
+                padding-right: calc(5vw + 180px);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            header {
+                padding-right: calc(5vw + 160px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding-right: calc(5vw + 120px);
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 4rem 5vw;
+                /* Restaurar padding normal */
+            }
+
+            .header-logo {
+                display: none !important;
+                /* Ocultar logo en pantallas muy pequeñas */
+            }
         }
 
         .header-meta {
