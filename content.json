@@ -109,10 +109,10 @@
     {
       "day": 19,
       "category": "DÍA 19",
-      "title": "Google Labs: Suite Creativa",
-      "description": "Experimentación con herramientas emergentes: Mixboard, Whisk, Pomelli, Opal y Flow.",
+      "title": "Foro/Debate",
+      "description": "Sesión final de discusión, reflexiones sobre las herramientas y networking.",
       "link": "#",
-      "symbol": "🧪"
+      "symbol": "💬"
     },
     {
       "day": 22,
@@ -125,10 +125,10 @@
     {
       "day": 23,
       "category": "DÍA 23",
-      "title": "Foro/Debate",
-      "description": "Sesión final de discusión, reflexiones sobre las herramientas y networking.",
+      "title": "Google Labs: Suite Creativa",
+      "description": "Experimentación con herramientas emergentes: Mixboard, Whisk, Pomelli, Opal y Flow.",
       "link": "#",
-      "symbol": "💬"
+      "symbol": "🧪"
     },
     {
       "day": 24,
