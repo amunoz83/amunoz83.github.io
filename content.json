@@ -37,16 +37,16 @@
     {
       "day": 5,
       "category": "DÍA 5",
-      "title": "Google Labs: Suite Creativa",
-      "description": "Experimentación con herramientas emergentes: Mixboard, Whisk, Pomelli, Opal y Flow.",
+      "title": "Foro/Debate",
+      "description": "Espacio abierto para compartir experiencias, resolver dudas y debatir sobre lo aprendido.",
       "link": "#",
-      "symbol": "🧪"
+      "symbol": "💬"
     },
     {
       "day": 9,
       "category": "DÍA 9",
       "title": "Behind the Scenes 1: Storytelling",
-      "description": "El arte de narrar: construcción de guiones y estructura narrativa para proyectos de IA.",
+      "description": "El arte de narrar: construcción de guiones y estructura narrativa para proyectos con IA.",
       "link": "#",
       "symbol": "📝"
     },
@@ -109,26 +109,26 @@
     {
       "day": 19,
       "category": "DÍA 19",
+      "title": "Google Labs: Suite Creativa",
+      "description": "Experimentación con herramientas emergentes: Mixboard, Whisk, Pomelli, Opal y Flow.",
+      "link": "#",
+      "symbol": "🧪"
+    },
+    {
+      "day": 22,
+      "category": "DÍA 22",
       "title": "Google: Vibe Coding - Caso DiskcatalogMaker",
       "description": "Estudio de caso sobre programación asistida por IA y depuración contextual.",
       "link": "#",
       "symbol": "💻"
     },
     {
-      "day": 22,
-      "category": "DÍA 22",
-      "title": "Photoshop: Ampliación Generativa",
-      "description": "Técnicas de outpainting para expandir lienzos sin perder calidad ni coherencia.",
-      "link": "#",
-      "symbol": "📐"
-    },
-    {
       "day": 23,
       "category": "DÍA 23",
-      "title": "Variaciones de decoraciones motivo",
-      "description": "Workflow Gemini + Acuarela: Creación de patrones decorativos y texturas generativas.",
+      "title": "Foro/Debate",
+      "description": "Sesión final de discusión, reflexiones sobre las herramientas y networking.",
       "link": "#",
-      "symbol": "🎨"
+      "symbol": "💬"
     },
     {
       "day": 24,
