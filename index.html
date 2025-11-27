@@ -613,6 +613,42 @@
             opacity: 0.9;
         }
 
+        .countdown-meet-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 42, 42, 0.1);
+            border: 1px solid var(--brand-red);
+            color: var(--brand-red);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .countdown-meet-link:hover {
+            background: var(--brand-red);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 42, 42, 0.3);
+        }
+
+        .countdown-meet-link.disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .countdown-meet-link.disabled:hover {
+            background: rgba(255, 42, 42, 0.1);
+            color: var(--brand-red);
+            transform: none;
+            box-shadow: none;
+        }
+
         @keyframes fadeInDown {
             from {
                 opacity: 0;
@@ -697,6 +733,11 @@
                 El calendario se revelará el 1 de diciembre a las 8:30h
             </p>
 
+            <a href="https://meet.google.com/ots-cbpq-aoa" target="_blank" id="meetLink"
+                class="countdown-meet-link disabled">
+                📹 Unirse al evento en Meet
+            </a>
+
             <img src="Altadia_Logo_RGB_Blanco:Rojo_RGB.png" alt="Altadia" class="countdown-logo">
         </div>
     </div>
@@ -748,15 +789,19 @@
     <script>
         // Countdown functionality
         const countdownOverlay = document.getElementById('countdownOverlay');
+        const meetLink = document.getElementById('meetLink');
         const targetDate = new Date('2025-12-01T08:30:00+01:00'); // 1 dic 2025, 8:30h Madrid (UTC+1)
 
         function updateCountdown() {
             const now = new Date();
             const difference = targetDate - now;
 
-            // Si ya pasó la fecha, ocultar el overlay
+            // Si ya pasó la fecha, ocultar el overlay y habilitar el botón de Meet
             if (difference <= 0) {
                 countdownOverlay.classList.add('hidden');
+                if (meetLink) {
+                    meetLink.classList.remove('disabled');
+                }
                 clearInterval(countdownInterval);
                 return;
             }
