@@ -157,6 +157,19 @@
         }
 
         /* --- LAYOUT --- */
+        .info-note {
+            font-size: 0.85rem;
+            opacity: 0.6;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        .info-note strong {
+            color: var(--brand-red);
+            font-weight: 600;
+            font-style: normal;
+        }
+
         header {
             padding: 4rem 5vw;
             border-bottom: 1px solid var(--border-color);
@@ -726,7 +739,13 @@
     <header>
         <span class="brand-tag">Dpto. Diseño — Formación Continua</span>
         <div class="header-meta">
-            <h1>Calendario<br><span class="ai-highlight">AI</span>dviento 2025</h1>
+            <div>
+                <h1>Calendario<br><span class="ai-highlight">AI</span>dviento 2025</h1>
+                <p class="info-note">
+                    Todos los contenidos han sido grabados previamente, <strong>excepto las sesiones online</strong>
+                    de los días <strong>5</strong> y <strong>19</strong>.
+                </p>
+            </div>
 
             <div style="max-width: 420px; text-align: right;">
                 <p style="font-size: 1.1rem; opacity: 0.8;">
