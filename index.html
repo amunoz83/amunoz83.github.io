@@ -411,6 +411,83 @@
             display: none;
         }
 
+        /* --- PRIVACY POLICY SECTION --- */
+        .privacy-policy-section {
+            padding: 3rem 5vw;
+            border-top: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            transition: all 0.5s ease;
+        }
+
+        .privacy-policy-section h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .privacy-policy-section p {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .privacy-policy-section a.text-link {
+            color: var(--brand-red);
+            text-decoration: none;
+            border-bottom: 1px solid var(--brand-red);
+            transition: opacity 0.3s ease;
+        }
+
+        .privacy-policy-section a.text-link:hover {
+            opacity: 0.7;
+        }
+
+        .privacy-policy-links {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .privacy-policy-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 1rem;
+            background: var(--accent-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .privacy-policy-link:hover {
+            background: var(--text-color);
+            color: var(--bg-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 600px) {
+            .privacy-policy-section {
+                padding: 2rem 5vw;
+            }
+
+            .privacy-policy-links {
+                flex-direction: column;
+            }
+
+            .privacy-policy-link {
+                justify-content: center;
+            }
+        }
+
         /* --- FOOTER --- */
         footer {
             padding: 2rem 5vw;
@@ -477,6 +554,125 @@
             }
         }
 
+        /* PRIVACY MODAL */
+        .privacy-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .privacy-modal.active {
+            display: flex;
+        }
+
+        .privacy-content {
+            background: var(--bg-color);
+            border: 2px solid var(--border-color);
+            padding: 3rem;
+            max-width: 600px;
+            width: 90%;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .privacy-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+            border-bottom: 2px solid var(--brand-red);
+            padding-bottom: 0.5rem;
+        }
+
+        .privacy-content p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .privacy-links {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .privacy-link {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: var(--accent-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .privacy-link:hover {
+            background: var(--text-color);
+            color: var(--bg-color);
+            transform: translateY(-2px);
+        }
+
+        .privacy-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .privacy-btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .privacy-btn.cancel {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+
+        .privacy-btn.accept {
+            background: var(--brand-red);
+            color: white;
+        }
+
+        .privacy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
         /* RESPONSIVE */
         @media (max-width: 1024px) {
             .calendar-grid {
@@ -502,6 +698,18 @@
             .day-card {
                 height: 300px;
                 border-left: none;
+            }
+
+            .privacy-content {
+                padding: 2rem;
+            }
+
+            .privacy-links {
+                flex-direction: column;
+            }
+
+            .privacy-actions {
+                flex-direction: column;
             }
         }
     </style>
@@ -534,6 +742,52 @@
         </div>
     </main>
 
+    <!-- Privacy Policy Section -->
+    <section class="privacy-policy-section">
+        <h3>Política de Uso de IA</h3>
+        <p>
+            Ésta y otras políticas de la empresa se encuentran en
+            <a href="https://app.convercent.com/en-US/Policy/Policies" class="text-link" target="_blank"
+                rel="noopener noreferrer">Convercent Policy Portal</a>.
+        </p>
+        <div class="privacy-policy-links">
+            <a href="PolíticaGenAIAltadia.ESP.pdf" class="privacy-policy-link" target="_blank"
+                rel="noopener noreferrer">
+                <span>📄</span>
+                <span>Política de Uso de IA (Español)</span>
+            </a>
+            <a href="300-005. 2025. Altadia's GenAI usage Policy.pdf" class="privacy-policy-link" target="_blank"
+                rel="noopener noreferrer">
+                <span>📄</span>
+                <span>AI Usage Policy (English)</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Privacy Policy Modal -->
+    <div class="privacy-modal" id="privacyModal">
+        <div class="privacy-content">
+            <h2>Política de Privacidad</h2>
+            <p>
+                Antes de comenzar con la formación, te recordamos nuestra política de uso de Inteligencia Artificial
+                aplicable a todos los trabajadores de Altadia.
+            </p>
+            <p style="font-size: 0.9rem; opacity: 0.7;">
+                Por favor, revisa los siguientes documentos:
+            </p>
+            <div class="privacy-links">
+                <a href="PolíticaGenAIAltadia.ESP.pdf" class="privacy-link" target="_blank" rel="noopener noreferrer">📄
+                    Política IA (Español)</a>
+                <a href="300-005. 2025. Altadia's GenAI usage Policy.pdf" class="privacy-link" target="_blank"
+                    rel="noopener noreferrer">📄 AI Policy (English)</a>
+            </div>
+            <div class="privacy-actions">
+                <button class="privacy-btn cancel" id="privacyCancel">Cancelar</button>
+                <button class="privacy-btn accept" id="privacyAccept">La conozco</button>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <!-- Left: Copyright -->
         <div class="footer-left">© 2025 Antonio Muñoz _ Esmalglass Design Department</div>
@@ -563,6 +817,36 @@
         toggleBtn.addEventListener('click', () => {
             body.classList.toggle('light-mode');
             toggleBtn.textContent = body.classList.contains('light-mode') ? "Modo Oscuro" : "Modo Claro";
+        });
+
+        // Privacy modal logic
+        const privacyModal = document.getElementById('privacyModal');
+        const privacyAccept = document.getElementById('privacyAccept');
+        const privacyCancel = document.getElementById('privacyCancel');
+        let privacyAccepted = localStorage.getItem('day2PrivacyAccepted') === 'true';
+        let pendingDay2Link = null;
+
+        privacyAccept.addEventListener('click', () => {
+            localStorage.setItem('day2PrivacyAccepted', 'true');
+            privacyAccepted = true;
+            privacyModal.classList.remove('active');
+            if (pendingDay2Link) {
+                window.open(pendingDay2Link, '_blank');
+                pendingDay2Link = null;
+            }
+        });
+
+        privacyCancel.addEventListener('click', () => {
+            privacyModal.classList.remove('active');
+            pendingDay2Link = null;
+        });
+
+        // Close modal on backdrop click
+        privacyModal.addEventListener('click', (e) => {
+            if (e.target === privacyModal) {
+                privacyModal.classList.remove('active');
+                pendingDay2Link = null;
+            }
         });
 
         // Variable global para desbloquear todo el contenido
@@ -722,7 +1006,7 @@
                             <p style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 2rem;">
                                 ${description}
                             </p>
-                            <a href="${link}" class="cta-link" target="_blank" onclick="event.stopPropagation()">Acceder a contenido →</a>
+                             <a href="${link}" class="cta-link" target="_blank" onclick="${day === 2 ? 'event.preventDefault(); event.stopPropagation(); handleDay2Click(this.href);' : 'event.stopPropagation();'}">Acceder a contenido →</a>
                         </div>
                     </div>
                 </div>
@@ -734,6 +1018,16 @@
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = html.trim();
             container.appendChild(tempDiv.firstChild);
+        }
+
+        // Handle Day 2 click
+        function handleDay2Click(link) {
+            if (!privacyAccepted) {
+                pendingDay2Link = link;
+                privacyModal.classList.add('active');
+            } else {
+                window.open(link, '_blank');
+            }
         }
 
         // Inicializar el calendario al cargar la página
