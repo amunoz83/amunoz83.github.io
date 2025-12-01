@@ -504,8 +504,6 @@
                 border-left: none;
             }
         }
-
-
     </style>
 </head>
 
@@ -694,6 +692,9 @@
             const lockedClass = isLocked ? ' locked' : '';
             const lockIcon = isLocked ? '<span class="lock-icon">🔒</span>' : '';
 
+            // Información adicional para los días 5 y 19 (reuniones de Meet)
+            const meetInfo = (day === 5 || day === 19) ? '<div style="display: flex; justify-content: center; margin-top: 1rem;"><div style="font-size: 0.7rem; text-align: center; padding: 0.5rem 1rem; border: 2px solid var(--brand-red); background: rgba(255, 42, 42, 0.1); color: var(--text-color); font-weight: 700; letter-spacing: 1px; border-radius: 4px;">ONLINE MEET 8:30H</div></div>' : '';
+
             const cardHTML = `
                 <div class="day-card${lockedClass}" data-day="${day}" data-month="${month}">
                     <div class="card-inner">
@@ -707,6 +708,7 @@
                                 ${day < 10 ? '0' + day : day}
                                 <span class="unique-symbol">${currentSymbol}</span>
                             </div>
+                            ${meetInfo}
                             <div class="date-meta">
                                 <span>${weekday}</span>
                                 <span>${isLocked ? '🔒 Bloqueado' : '+ Info'}</span>
