@@ -971,7 +971,7 @@
                 const madridTime = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Madrid' }));
 
                 // Crear fecha de desbloqueo: día de la tarjeta a las 8:00 AM Madrid
-                const unlockDate = new Date(year, month, day, 8, 0, 0, 0);
+                const unlockDate = new Date(year, month, day, 7, 30, 0, 0);
 
                 // La tarjeta está bloqueada si aún no es la hora de desbloqueo
                 isLocked = madridTime < unlockDate;
