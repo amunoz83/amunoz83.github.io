@@ -117,16 +117,16 @@
     {
       "day": 22,
       "category": "DÍA 22",
-      "title": "Google: Vibe Coding - Caso DiskcatalogMaker",
-      "description": "Estudio de caso sobre programación asistida por IA y depuración contextual.",
-      "link": "#",
+      "title": "Google: Vibe Coding",
+      "description": "En que consiste la programación asistida por IA.",
+      "link": "https://drive.google.com/file/d/1KqApc3pxQ_UNuKs0mkOQgKUBl-sR_AGz/view?usp=sharing",
       "symbol": "💻"
     },
     {
       "day": 23,
       "category": "DÍA 23",
       "title": "Google Labs: Suite Creativa",
-      "description": "Experimentación con herramientas emergentes: Mixboard, Whisk, Pomelli, Opal y Flow.",
+      "description": "Experimentación con herramientas emergentes: Mixboard, Whisk, Stitch y Flow.",
       "link": "#",
       "symbol": "🧪"
     },
